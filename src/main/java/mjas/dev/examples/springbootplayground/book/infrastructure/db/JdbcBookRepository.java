@@ -5,6 +5,8 @@ import mjas.dev.examples.springbootplayground.book.domain.Book;
 import mjas.dev.examples.springbootplayground.book.domain.BookRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Slf4j
 public class JdbcBookRepository implements BookRepository {
@@ -15,6 +17,11 @@ public class JdbcBookRepository implements BookRepository {
 
     @Override
     public void create(Book book) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+
+    @Override
+    public List<Book> getBooks() {
         throw new UnsupportedOperationException("not implemented");
     }
 }

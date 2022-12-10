@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Moje ulubione książki</title>
+</head>
+
+<body>
+<h1>Moje książki</h1>
+
+<table>
+    <thead>
+    <tr>
+      <th>Tytuł</th>
+      <th>Autor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book: ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form action="#" th:object="${newBook}" th:action="@{/ui/books}" method="post">
+    <fieldset>
+        <label>
+            Tytuł
+            <input type="text" th:field="*{title}"/>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Autor
+            <input type="text" th:field="*{author}"/>
+        </label>
+    </fieldset>
+    <button type="submit">Dodaj</button>
+</form>
+
+</body>
+
+</html>

@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Primary
 @Profile("memory")
@@ -26,5 +24,10 @@ public class InMemoryBookRepository implements BookRepository {
     @Override
     public void create(Book book) {
         books.put(book.getId(), book);
+    }
+
+    @Override
+    public List<Book> getBooks() {
+        return new ArrayList<>(books.values());
     }
 }

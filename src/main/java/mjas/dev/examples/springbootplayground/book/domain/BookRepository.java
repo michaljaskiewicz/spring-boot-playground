@@ -1,5 +1,6 @@
 package mjas.dev.examples.springbootplayground.book.domain;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface BookRepository {
@@ -9,5 +10,7 @@ public interface BookRepository {
     }
 
     void create(Book book);
+
+    List<Book> getBooks();
 
 }
