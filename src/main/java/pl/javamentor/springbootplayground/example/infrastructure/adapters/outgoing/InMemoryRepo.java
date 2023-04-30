@@ -1,4 +1,4 @@
-package pl.javamentor.springbootplayground.example.infrastructure;
+package pl.javamentor.springbootplayground.example.infrastructure.adapters.outgoing;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;

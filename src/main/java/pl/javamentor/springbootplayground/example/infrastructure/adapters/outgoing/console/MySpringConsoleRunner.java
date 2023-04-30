@@ -1,8 +1,7 @@
-package pl.javamentor.springbootplayground.example.infrastructure;
+package pl.javamentor.springbootplayground.example.infrastructure.adapters.outgoing.console;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import pl.javamentor.springbootplayground.example.domain.MyService;
 
