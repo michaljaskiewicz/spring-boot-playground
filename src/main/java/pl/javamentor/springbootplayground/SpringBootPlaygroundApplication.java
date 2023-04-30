@@ -14,21 +14,7 @@ public class SpringBootPlaygroundApplication {
     private final UserService myService;
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringBootPlaygroundApplication.class, args);
-        System.out.println("stop");
-    }
-
-    @PostConstruct
-    private void postConstruct() {
-        System.out.println("postConstruct is running");
-        myService.doSomething();
-        myService.doSomething();
-        myService.doSomething();
-        myService.doSomething();
-        myService.doSomething();
-        myService.doSomething();
-        myService.doSomething();
-        System.out.println("postConstruct is done");
+        SpringApplication.run(SpringBootPlaygroundApplication.class, args);
     }
 
 }

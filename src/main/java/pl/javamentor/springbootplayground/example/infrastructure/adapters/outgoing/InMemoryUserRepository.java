@@ -8,16 +8,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 class InMemoryUserRepository implements UserRepository {
 
     private final Map<Long, User> repo = new HashMap<>();
 
+    private final AtomicLong nextId = new AtomicLong(1L);
+
     public InMemoryUserRepository() {
-        repo.put(1L, new User(1L, "name1"));
-        repo.put(2L, new User(2L, "name2"));
-        repo.put(3L, new User(3L, "name3"));
+        create(new User("name1"));
+        create(new User("name2"));
+        create(new User("name3"));
+    }
+
+    @Override
+    public void create(final User user) {
+        user.setId(nextId.getAndIncrement());
+        repo.put(user.getId(), user);
     }
 
     @Override

@@ -12,13 +12,18 @@ public class UserService {
 
     private int counter = 0;
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
     public void doSomething() {
         counter++;
         System.out.println("I did something " + counter + " times");
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Long createUser(String name) {
+        User user = new User(name);
+        userRepository.create(user);
+        return user.getId();
     }
-
 }
