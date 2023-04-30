@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class MyService {
+public class UserService {
 
-    private final MyRepository myRepository;
+    private final UserRepository userRepository;
 
     private int counter = 0;
 
@@ -17,8 +17,8 @@ public class MyService {
         System.out.println("I did something " + counter + " times");
     }
 
-    public List<MyEntity> findAll() {
-        return myRepository.findAll();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
 }

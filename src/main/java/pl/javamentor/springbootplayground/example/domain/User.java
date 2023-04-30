@@ -3,7 +3,7 @@ package pl.javamentor.springbootplayground.example.domain;
 import lombok.Value;
 
 @Value
-public class MyEntity {
+public class User {
     Long id;
     String name;
 }

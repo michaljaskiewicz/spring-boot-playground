@@ -4,11 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MyServiceConfiguration {
+public class UserServiceConfiguration {
 
     @Bean
-    public MyService myService(MyRepository myRepository) {
-        return new MyService(myRepository);
+    public UserService userService(UserRepository userRepository) {
+        return new UserService(userRepository);
     }
 
 }

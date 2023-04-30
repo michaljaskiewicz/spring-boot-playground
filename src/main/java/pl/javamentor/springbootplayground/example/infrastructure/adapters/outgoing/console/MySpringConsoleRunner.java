@@ -3,13 +3,13 @@ package pl.javamentor.springbootplayground.example.infrastructure.adapters.outgo
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import pl.javamentor.springbootplayground.example.domain.MyService;
+import pl.javamentor.springbootplayground.example.domain.UserService;
 
 @Component
 @RequiredArgsConstructor
 public class MySpringConsoleRunner implements CommandLineRunner {
 
-    public final MyService myService;
+    public final UserService myService;
 
     @Override
     public void run(String... args) throws Exception {
