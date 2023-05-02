@@ -2,6 +2,7 @@ package pl.javamentor.springbootplayground.example.domain;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
 
 import java.util.List;
 
@@ -21,9 +22,24 @@ public class UserService {
         System.out.println("I did something " + counter + " times");
     }
 
-    public Long createUser(String name) {
-        User user = new User(name);
+    public Long createUser(String name, String lifeStoryDescription, List<String> hobbies) {
+        User user = new User(name, lifeStoryDescription, hobbies);
         userRepository.create(user);
         return user.getId();
+    }
+
+    public User getById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new DomainObjectNotFoundException("User with id " + userId + " not found"));
+    }
+
+    public void updateUser(Long userId, String lifeStoryDescription, List<String> hobbies) {
+        User user = getById(userId);
+        user.update(lifeStoryDescription, hobbies);
+        userRepository.update(user);
+    }
+
+    public void deleteById(Long userId) {
+        userRepository.delete(userId);
     }
 }
