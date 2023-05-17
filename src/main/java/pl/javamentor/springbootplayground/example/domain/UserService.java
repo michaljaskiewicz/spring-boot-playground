@@ -3,6 +3,7 @@ package pl.javamentor.springbootplayground.example.domain;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
+import pl.javamentor.springbootplayground.example.domain.model.query.FindUsersFilter;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ public class UserService {
 
     private int counter = 0;
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<User> findAll(final FindUsersFilter filter) {
+        return userRepository.findAll(filter);
     }
 
     public void doSomething() {

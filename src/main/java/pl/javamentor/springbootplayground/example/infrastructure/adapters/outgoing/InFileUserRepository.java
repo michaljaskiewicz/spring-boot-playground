@@ -15,15 +15,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+@Repository
 @Slf4j
-class InMemoryUserRepository implements UserRepository {
+class InFileUserRepository implements UserRepository {
 
     private final Map<Long, User> repo = new HashMap<>();
 
     private final AtomicLong nextId = new AtomicLong(1L);
 
-    public InMemoryUserRepository() {
-        log.info("Creating users in memory repository");
+    public InFileUserRepository() {
+        log.info("Creating users in file repository");
         create(new User("name1", null, null));
         create(new User("name2", null, null));
         create(new User("name3", null, null));

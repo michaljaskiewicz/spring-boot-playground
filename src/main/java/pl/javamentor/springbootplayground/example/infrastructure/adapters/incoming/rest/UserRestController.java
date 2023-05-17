@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
 import pl.javamentor.springbootplayground.example.domain.User;
 import pl.javamentor.springbootplayground.example.domain.UserService;
+import pl.javamentor.springbootplayground.example.domain.model.query.FindUsersFilter;
+import pl.javamentor.springbootplayground.example.domain.model.query.FindUsersFilter.FindUsersFilterBuilder;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,12 +42,23 @@ public class UserRestController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    // TODO: filter by name (show query params)
+
     @GetMapping("/api/users")
-    public List<UserDto> findAll() {
-        return userService.findAll().stream()
+    public List<UserDto> findAll(@RequestParam final Optional<String> name,
+                                 @RequestParam final Optional<String> hobby,
+                                 @RequestParam final Optional<String> lifeStoryDescription) {
+        return userService.findAll(buildFilter(name, hobby, lifeStoryDescription))
+                .stream()
                 .map(user -> new UserDto(user.getId(), user.getName(), user.getRegisteredAt()))
                 .toList();
+    }
+
+    private FindUsersFilter buildFilter(Optional<String> name, Optional<String> hobby, Optional<String> lifeStoryDescription) {
+        final FindUsersFilterBuilder filterBuilder = FindUsersFilter.builder();
+        name.ifPresent(filterBuilder::name);
+        hobby.ifPresent(filterBuilder::hobby);
+        lifeStoryDescription.ifPresent(filterBuilder::lifeStoryDescription);
+        return filterBuilder.build();
     }
 
     @GetMapping("/api/users/{userId}")
@@ -51,9 +67,9 @@ public class UserRestController {
     }
 
     @DeleteMapping("/api/users/{userId}")
-    public ResponseEntity delete(@PathVariable Long userId) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long userId) {
         userService.deleteById(userId);
-        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/api/users/{userId}")
