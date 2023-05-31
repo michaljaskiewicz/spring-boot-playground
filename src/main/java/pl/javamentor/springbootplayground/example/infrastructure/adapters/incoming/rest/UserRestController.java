@@ -118,7 +118,7 @@ public class UserRestController {
         Long id;
         String name;
         LocalDateTime registeredAt;
-        Instant modifiedAt;;
+        Instant modifiedAt;
         String lifeStoryDescription;
         List<String> hobbies;
     }
