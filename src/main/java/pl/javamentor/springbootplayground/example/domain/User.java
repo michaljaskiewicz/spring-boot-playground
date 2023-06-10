@@ -1,7 +1,14 @@
 package pl.javamentor.springbootplayground.example.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,19 +24,24 @@ import static java.time.ZoneId.systemDefault;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
+@Entity
+@Table(name = "app_user")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @EqualsAndHashCode
 @ToString
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter
     private Long id;
 
-    private final Instant createdAt;
+    private Instant createdAt;
 
-    private final LocalDateTime registeredAt;
+    private LocalDateTime registeredAt;
 
-    private final String name;
+    private String name;
 
     private String lifeStoryDescription;
 
