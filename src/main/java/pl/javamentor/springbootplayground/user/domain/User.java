@@ -1,13 +1,18 @@
 package pl.javamentor.springbootplayground.user.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -56,18 +61,23 @@ public class User {
 
 	private List<String> hobbies;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "userId")
+	private List<Contact> contacts;
+
 	private Address address;
 
 	@LastModifiedDate
 	private Instant modifiedAt;
 
-	public User(String name, Sex sex, Address address, @Nullable String lifeStoryDescription, @Nullable List<String> hobbies) {
+	public User(String name, Sex sex, final List<Contact> contacts, Address address, @Nullable String lifeStoryDescription, @Nullable List<String> hobbies) {
 		checkArgument(isNotBlank(name), "Cannot create user with blank name");
 		this.name = name;
 		this.sex = sex;
 		this.lifeStoryDescription = lifeStoryDescription;
 		this.hobbies = ofNullable(hobbies).orElse(new ArrayList<>());
 		this.address = address;
+		this.contacts = contacts;
 	}
 
 	public Optional<String> getLifeStoryDescription() {

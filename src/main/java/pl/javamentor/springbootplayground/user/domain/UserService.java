@@ -25,8 +25,8 @@ public class UserService {
 		System.out.println("I did something " + counter + " times");
 	}
 
-	public Long createUser(String name, final Sex sex, Address address, String lifeStoryDescription, List<String> hobbies) {
-		User user = new User(name, sex, address, lifeStoryDescription, hobbies);
+	public Long createUser(String name, Sex sex, List<Contact> contacts, Address address, String lifeStoryDescription, List<String> hobbies) {
+		User user = new User(name, sex, contacts, address, lifeStoryDescription, hobbies);
 		userRepository.create(user);
 		return user.getId();
 	}

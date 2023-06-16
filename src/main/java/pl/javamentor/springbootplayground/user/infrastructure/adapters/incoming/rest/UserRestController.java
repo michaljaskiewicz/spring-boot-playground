@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
+import pl.javamentor.springbootplayground.user.domain.Contact;
 import pl.javamentor.springbootplayground.user.domain.model.Sex;
 import pl.javamentor.springbootplayground.user.domain.User;
 import pl.javamentor.springbootplayground.user.domain.UserService;
@@ -40,6 +41,7 @@ public class UserRestController {
 			Long createdUserId = userService.createUser(
 					createUserDto.getName(),
 					createUserDto.getSex(),
+					createUserDto.getContacts(),
 					createUserDto.getAddress(),
 					createUserDto.getLifeStoryDescription(),
 					createUserDto.getHobbies());
@@ -95,6 +97,7 @@ public class UserRestController {
 		private String name;
 		private Sex sex;
 		private String lifeStoryDescription;
+		private List<Contact> contacts;
 		private Address address;
 		private List<String> hobbies;
 	}
