@@ -3,6 +3,8 @@ package pl.javamentor.springbootplayground.user.domain;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
+import pl.javamentor.springbootplayground.user.domain.model.Address;
+import pl.javamentor.springbootplayground.user.domain.model.Sex;
 import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilter;
 
 import java.util.List;
@@ -23,8 +25,8 @@ public class UserService {
 		System.out.println("I did something " + counter + " times");
 	}
 
-	public Long createUser(String name, String lifeStoryDescription, List<String> hobbies) {
-		User user = new User(name, lifeStoryDescription, hobbies);
+	public Long createUser(String name, final Sex sex, Address address, String lifeStoryDescription, List<String> hobbies) {
+		User user = new User(name, sex, address, lifeStoryDescription, hobbies);
 		userRepository.create(user);
 		return user.getId();
 	}

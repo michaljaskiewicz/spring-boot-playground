@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
+import pl.javamentor.springbootplayground.user.domain.model.Sex;
 import pl.javamentor.springbootplayground.user.domain.User;
 import pl.javamentor.springbootplayground.user.domain.UserService;
+import pl.javamentor.springbootplayground.user.domain.model.Address;
 import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilter;
 import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilter.FindUsersFilterBuilder;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +38,11 @@ public class UserRestController {
 	public ResponseEntity<?> create(@RequestBody final CreateUserDto createUserDto) {
 		try {
 			Long createdUserId = userService.createUser(
-					createUserDto.getName(), createUserDto.getLifeStoryDescription(), createUserDto.getHobbies());
+					createUserDto.getName(),
+					createUserDto.getSex(),
+					createUserDto.getAddress(),
+					createUserDto.getLifeStoryDescription(),
+					createUserDto.getHobbies());
 			return ResponseEntity.status(HttpStatus.CREATED).body(createdUserId);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -49,7 +55,8 @@ public class UserRestController {
 			@RequestParam final Optional<String> lifeStoryDescription) {
 		return userService.findAll(buildFilter(name, hobby, lifeStoryDescription))
 				.stream()
-				.map(user -> new UserDto(user.getId(), user.getName(), user.getRegisteredAt()))
+				.map(user -> new UserDto(user.getId(), user.getName(),
+						LocalDateTime.ofInstant(user.getCreatedAt(), ZoneId.systemDefault())))
 				.toList();
 	}
 
@@ -62,8 +69,8 @@ public class UserRestController {
 	}
 
 	@GetMapping("/api/users/{userId}")
-	public UserDetailsDto findById(@PathVariable Long userId) {
-		return toUserDetailsDto(userService.getById(userId));
+	public User findById(@PathVariable Long userId) {
+		return userService.getById(userId);
 	}
 
 	@DeleteMapping("/api/users/{userId}")
@@ -83,20 +90,12 @@ public class UserRestController {
 		return ResponseEntity.notFound().build();
 	}
 
-	private UserDetailsDto toUserDetailsDto(User user) {
-		return new UserDetailsDto(
-				user.getId(),
-				user.getName(),
-				user.getRegisteredAt(),
-				user.getModifiedAt(),
-				user.getLifeStoryDescription().orElse("no life story"),
-				user.getHobbies());
-	}
-
 	@Data
 	private static class CreateUserDto {
 		private String name;
+		private Sex sex;
 		private String lifeStoryDescription;
+		private Address address;
 		private List<String> hobbies;
 	}
 
@@ -111,16 +110,6 @@ public class UserRestController {
 		Long id;
 		String name;
 		LocalDateTime registeredAt;
-	}
-
-	@Value
-	private static class UserDetailsDto {
-		Long id;
-		String name;
-		LocalDateTime registeredAt;
-		Instant modifiedAt;
-		String lifeStoryDescription;
-		List<String> hobbies;
 	}
 
 }

@@ -20,13 +20,6 @@ class InMemoryUserRepository implements UserRepository {
 
 	private final AtomicLong nextId = new AtomicLong(1L);
 
-	public InMemoryUserRepository() {
-		log.info("Creating users in memory repository");
-		create(new User("name1", null, null));
-		create(new User("name2", null, null));
-		create(new User("name3", null, null));
-	}
-
 	@Override
 	public void create(final User user) {
 		user.setId(nextId.getAndIncrement());

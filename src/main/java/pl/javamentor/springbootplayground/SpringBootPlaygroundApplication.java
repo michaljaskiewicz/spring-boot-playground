@@ -1,11 +1,11 @@
 package pl.javamentor.springbootplayground;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-@RequiredArgsConstructor
+@EnableJpaAuditing
 public class SpringBootPlaygroundApplication {
 
 	public static void main(String[] args) {
