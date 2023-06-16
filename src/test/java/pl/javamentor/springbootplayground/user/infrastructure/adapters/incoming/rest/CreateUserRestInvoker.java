@@ -1,4 +1,4 @@
-package pl.javamentor.springbootplayground.example.infrastructure.adapters.incoming.rest;
+package pl.javamentor.springbootplayground.user.infrastructure.adapters.incoming.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

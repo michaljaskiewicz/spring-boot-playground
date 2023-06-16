@@ -1,4 +1,4 @@
-package pl.javamentor.springbootplayground.example.infrastructure.adapters.incoming.rest;
+package pl.javamentor.springbootplayground.user.infrastructure.adapters.incoming.rest;
 
 import lombok.Value;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import pl.javamentor.springbootplayground.example.infrastructure.adapters.incoming.rest.CreateUserRestInvoker.CreateUserDto;
+import pl.javamentor.springbootplayground.user.infrastructure.adapters.incoming.rest.CreateUserRestInvoker.CreateUserDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
