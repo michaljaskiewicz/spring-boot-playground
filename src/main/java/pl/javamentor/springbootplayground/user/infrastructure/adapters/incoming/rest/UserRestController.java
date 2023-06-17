@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
+import pl.javamentor.springbootplayground.user.domain.Company;
 import pl.javamentor.springbootplayground.user.domain.Contact;
 import pl.javamentor.springbootplayground.user.domain.model.Sex;
 import pl.javamentor.springbootplayground.user.domain.User;
@@ -44,7 +45,9 @@ public class UserRestController {
 					createUserDto.getContacts(),
 					createUserDto.getAddress(),
 					createUserDto.getLifeStoryDescription(),
-					createUserDto.getHobbies());
+					createUserDto.getHobbies(),
+					createUserDto.getCompany()
+			);
 			return ResponseEntity.status(HttpStatus.CREATED).body(createdUserId);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -72,7 +75,8 @@ public class UserRestController {
 
 	@GetMapping("/api/users/{userId}")
 	public User findById(@PathVariable Long userId) {
-		return userService.getById(userId);
+		final User user = userService.getById(userId);
+		return user;
 	}
 
 	@DeleteMapping("/api/users/{userId}")
@@ -100,6 +104,7 @@ public class UserRestController {
 		private List<Contact> contacts;
 		private Address address;
 		private List<String> hobbies;
+		private Company company;
 	}
 
 	@Data

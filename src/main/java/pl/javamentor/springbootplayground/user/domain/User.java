@@ -10,9 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -67,10 +67,13 @@ public class User {
 
 	private Address address;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Company company;
+
 	@LastModifiedDate
 	private Instant modifiedAt;
 
-	public User(String name, Sex sex, final List<Contact> contacts, Address address, @Nullable String lifeStoryDescription, @Nullable List<String> hobbies) {
+	public User(String name, Sex sex, final List<Contact> contacts, Address address, @Nullable String lifeStoryDescription, @Nullable List<String> hobbies, final Company company) {
 		checkArgument(isNotBlank(name), "Cannot create user with blank name");
 		this.name = name;
 		this.sex = sex;
@@ -78,6 +81,7 @@ public class User {
 		this.hobbies = ofNullable(hobbies).orElse(new ArrayList<>());
 		this.address = address;
 		this.contacts = contacts;
+		this.company = company;
 	}
 
 	public Optional<String> getLifeStoryDescription() {
