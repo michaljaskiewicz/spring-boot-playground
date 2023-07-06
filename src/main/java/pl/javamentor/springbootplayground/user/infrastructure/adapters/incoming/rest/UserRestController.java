@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
 import pl.javamentor.springbootplayground.user.domain.Company;
 import pl.javamentor.springbootplayground.user.domain.Contact;
-import pl.javamentor.springbootplayground.user.domain.model.Sex;
 import pl.javamentor.springbootplayground.user.domain.User;
 import pl.javamentor.springbootplayground.user.domain.UserService;
 import pl.javamentor.springbootplayground.user.domain.model.Address;
+import pl.javamentor.springbootplayground.user.domain.model.Sex;
 import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilter;
 import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilter.FindUsersFilterBuilder;
 
@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,7 +47,8 @@ public class UserRestController {
 					createUserDto.getAddress(),
 					createUserDto.getLifeStoryDescription(),
 					createUserDto.getHobbies(),
-					createUserDto.getCompany()
+					createUserDto.getCompany(),
+					createUserDto.getTeams()
 			);
 			return ResponseEntity.status(HttpStatus.CREATED).body(createdUserId);
 		} catch (IllegalArgumentException e) {
@@ -104,6 +106,7 @@ public class UserRestController {
 		private List<Contact> contacts;
 		private Address address;
 		private List<String> hobbies;
+		private Set<Long> teams;
 		private Company company;
 	}
 

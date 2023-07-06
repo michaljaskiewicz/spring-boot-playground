@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -30,6 +32,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Optional.ofNullable;
@@ -67,13 +70,20 @@ public class User {
 
 	private Address address;
 
+	@Setter
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable
+	@ToString.Exclude
+	private Set<Team> teams;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Company company;
 
 	@LastModifiedDate
 	private Instant modifiedAt;
 
-	public User(String name, Sex sex, final List<Contact> contacts, Address address, @Nullable String lifeStoryDescription, @Nullable List<String> hobbies, final Company company) {
+	public User(String name, Sex sex, final List<Contact> contacts, Address address, @Nullable String lifeStoryDescription, @Nullable List<String> hobbies,
+			final Company company) {
 		checkArgument(isNotBlank(name), "Cannot create user with blank name");
 		this.name = name;
 		this.sex = sex;
