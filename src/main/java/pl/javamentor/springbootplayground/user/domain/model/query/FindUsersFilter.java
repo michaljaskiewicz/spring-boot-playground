@@ -14,6 +14,7 @@ public class FindUsersFilter {
 	String name;
 	String hobby;
 	String lifeStoryDescription;
+	String teamName;
 
 	public Optional<String> getName() {
 		return ofNullable(name);
@@ -25,5 +26,9 @@ public class FindUsersFilter {
 
 	public Optional<String> getLifeStoryDescription() {
 		return ofNullable(lifeStoryDescription);
+	}
+
+	public Optional<String> getTeamName() {
+		return ofNullable(teamName);
 	}
 }

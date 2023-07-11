@@ -28,6 +28,17 @@ public class JpaUserRepository implements UserRepository {
 
 	@Override
 	public List<User> findAll(FindUsersFilter filter) {
+		if (filter.getTeamName().isPresent()) {
+//			return springDataJpaRepository.findAllByTeams_nameContainsIgnoreCase(filter.getTeamName().get());
+			return springDataJpaRepository.findByTeamName(filter.getTeamName().get());
+		}
+		if (filter.getLifeStoryDescription().isPresent() && filter.getName().isPresent()) {
+			return springDataJpaRepository.findByLifeStoryDescriptionContainsIgnoreCaseOrNameContainsIgnoreCase(
+					filter.getLifeStoryDescription().get(), filter.getName().get());
+		}
+		if (filter.getLifeStoryDescription().isPresent()) {
+			return springDataJpaRepository.findByLifeStoryDescriptionContainsIgnoreCase(filter.getLifeStoryDescription().get());
+		}
 		if (filter.getLifeStoryDescription().isEmpty() && filter.getHobby().isEmpty() && filter.getName().isEmpty()) {
 			return springDataJpaRepository.findAll();
 		}

@@ -26,7 +26,6 @@ import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilte
 import pl.javamentor.springbootplayground.user.domain.model.query.FindUsersFilter.FindUsersFilterBuilder;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -57,20 +56,23 @@ public class UserRestController {
 	}
 
 	@GetMapping("/api/users")
-	public List<UserDto> findAll(@RequestParam final Optional<String> name,
+	public List<User> findAll(@RequestParam final Optional<String> name,
 			@RequestParam final Optional<String> hobby,
+			@RequestParam final Optional<String> teamName,
 			@RequestParam final Optional<String> lifeStoryDescription) {
-		return userService.findAll(buildFilter(name, hobby, lifeStoryDescription))
-				.stream()
-				.map(user -> new UserDto(user.getId(), user.getName(),
-						LocalDateTime.ofInstant(user.getCreatedAt(), ZoneId.systemDefault())))
-				.toList();
+		return userService.findAll(buildFilter(name, hobby, teamName, lifeStoryDescription));
+//				.stream()
+//				.map(user -> new UserDto(user.getId(), user.getName(),
+//						LocalDateTime.ofInstant(user.getCreatedAt(), ZoneId.systemDefault())))
+//				.toList();
 	}
 
-	private FindUsersFilter buildFilter(Optional<String> name, Optional<String> hobby, Optional<String> lifeStoryDescription) {
+	private FindUsersFilter buildFilter(Optional<String> name, Optional<String> hobby, Optional<String> teamName,
+			Optional<String> lifeStoryDescription) {
 		final FindUsersFilterBuilder filterBuilder = FindUsersFilter.builder();
 		name.ifPresent(filterBuilder::name);
 		hobby.ifPresent(filterBuilder::hobby);
+		teamName.ifPresent(filterBuilder::teamName);
 		lifeStoryDescription.ifPresent(filterBuilder::lifeStoryDescription);
 		return filterBuilder.build();
 	}
