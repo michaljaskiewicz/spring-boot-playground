@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.emptySet;
+import static java.util.Optional.ofNullable;
+
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class UserService {
 
@@ -31,7 +34,7 @@ public class UserService {
 	public Long createUser(String name, Sex sex, List<Contact> contacts, Address address, String lifeStoryDescription, List<String> hobbies, final Company company,
 			final Set<Long> teams) {
 		User user = new User(name, sex, contacts, address, lifeStoryDescription, hobbies, company);
-		final Set<Team> userTeams = teams.stream().map(this::getTeamById).collect(Collectors.toSet());
+		final Set<Team> userTeams = ofNullable(teams).orElse(emptySet()).stream().map(this::getTeamById).collect(Collectors.toSet());
 		user.setTeams(userTeams);
 		userRepository.create(user);
 		return user.getId();

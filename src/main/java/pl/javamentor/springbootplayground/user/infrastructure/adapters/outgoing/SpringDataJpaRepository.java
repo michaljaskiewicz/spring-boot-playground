@@ -16,7 +16,7 @@ public interface SpringDataJpaRepository extends JpaRepository<User, Long> {
 	List<User> findAllByTeams_nameContainsIgnoreCase(String teamName);
 
 	@Query(
-			"select u from User u join u.teams t"
+			"select u from AppUser  u join u.teams t"
 					+ " where lower(t.name) like concat('%', lower(:teamName), '%')"
 	)
 	List<User> findByTeamName(@Param("teamName") String teamName);

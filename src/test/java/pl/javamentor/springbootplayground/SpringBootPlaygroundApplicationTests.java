@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.javamentor.springbootplayground.user.domain.UserService;
 
-@SpringBootTest
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 class SpringBootPlaygroundApplicationTests {
 
     @Autowired

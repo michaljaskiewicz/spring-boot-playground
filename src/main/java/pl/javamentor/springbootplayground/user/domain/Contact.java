@@ -24,11 +24,10 @@ public class Contact {
 	@Enumerated(EnumType.STRING)
 	private ContactType type;
 
-	private String value;
-
-
+	private String text;
 
 	enum ContactType {
 		PHONE, EMAIL
-	}
+		}
+
 }

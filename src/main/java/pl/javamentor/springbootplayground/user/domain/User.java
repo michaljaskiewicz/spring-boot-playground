@@ -14,7 +14,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,8 +38,7 @@ import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @EntityListeners(AuditingEntityListener.class)
-@Entity
-@Table(name = "app_user")
+@Entity(name = "AppUser")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @EqualsAndHashCode
@@ -53,7 +51,7 @@ public class User {
 	private Long id;
 
 	@CreatedDate
-	private Instant createdAt;
+	private Instant registeredAt;
 
 	private String name;
 
