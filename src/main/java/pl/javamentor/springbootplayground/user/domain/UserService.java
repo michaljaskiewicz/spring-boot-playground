@@ -1,5 +1,7 @@
 package pl.javamentor.springbootplayground.user.domain;
 
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import pl.javamentor.springbootplayground.commons.domain.model.exceptions.DomainObjectNotFoundException;
@@ -15,10 +17,12 @@ import static java.util.Collections.emptySet;
 import static java.util.Optional.ofNullable;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@Transactional
 public class UserService {
 
 	private final UserRepository userRepository;
 	private final TeamRepository teamRepository;
+	private final EntityManager entityManager;
 
 	private int counter = 0;
 
